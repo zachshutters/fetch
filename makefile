@@ -1,3 +1,7 @@
+.PHONY: setup
+setup: 
+	go mod tidy
+
 .PHONY: run
 run: server types
 	go run ./cmd/receipt_processor/main.go
