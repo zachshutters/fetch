@@ -1,5 +1,5 @@
 .PHONY: run
-run:
+run: server types
 	go run ./cmd/receipt_processor/main.go
 
 # Default target
