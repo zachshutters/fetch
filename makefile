@@ -1,5 +1,5 @@
 .PHONY: setup
-setup: 
+setup: server
 	go mod tidy
 
 .PHONY: run
