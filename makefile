@@ -4,6 +4,7 @@ setup: server
 
 .PHONY: run
 run: server types
+	go mod tidy
 	go run ./cmd/receipt_processor/main.go
 
 # Default target
