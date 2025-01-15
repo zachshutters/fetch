@@ -11,7 +11,9 @@ import (
 type ReceiptItemDescriptionRule struct {
 }
 
-// 6 points if the day in the purchase date is odd.
+// If the trimmed length of the item description is a multiple of 3,
+// multiply the price by 0.2 and round up to the nearest integer.
+// The result is the number of points earned.
 func (r *ReceiptItemDescriptionRule) Execute(item *models.Item) (int, error) {
 	var points = 0
 
