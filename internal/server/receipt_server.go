@@ -16,7 +16,7 @@ func (s *ReceiptServer) GetReceiptsIdPoints(ctx echo.Context, id string) error {
 
 	points, err := s.receiptSvc.LookupPoints(id)
 	if err != nil {
-		return ctx.JSON(http.StatusNotFound, map[string]string{"description": "No receipt found for that ID."})
+		return ctx.JSON(http.StatusNotFound, models.CreateErrorResponse("No receipt found for that ID."))
 	}
 
 	return ctx.JSON(http.StatusOK, models.CreatePointsResponse(points))
@@ -28,15 +28,15 @@ func (s *ReceiptServer) PostReceiptsProcess(ctx echo.Context) error {
 
 	if err := ctx.Bind(data); err != nil {
 		// return err
-		return ctx.JSON(http.StatusBadRequest, map[string]string{"error": "The receipt is invalid."})
+		return ctx.JSON(http.StatusBadRequest, models.CreateErrorResponse("The receipt is invalid."))
 	}
 
 	id, err := s.receiptSvc.ProcessReceipt(data)
 
 	if err != nil {
-		return ctx.JSON(http.StatusBadRequest, map[string]string{"error": "The receipt is invalid."})
+		return ctx.JSON(http.StatusBadRequest, models.CreateErrorResponse("The receipt is invalid."))
 	}
-	return ctx.JSON(http.StatusOK, map[string]string{"id": id})
+	return ctx.JSON(http.StatusOK, models.CreateProcessedResponse(id))
 }
 
 func New(receiptSvc *receipt.ReceiptService) (*ReceiptServer, error) {

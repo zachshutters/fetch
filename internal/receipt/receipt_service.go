@@ -2,6 +2,7 @@ package receipt
 
 import (
 	"errors"
+	"log"
 	"receipt_processor/internal/ledger"
 	ledgermodels "receipt_processor/internal/models"
 	"receipt_processor/internal/rules"
@@ -9,13 +10,13 @@ import (
 )
 
 type ReceiptService struct {
-	rules  rules.RulesService
+	rules  *rules.RulesService
 	ledger ledger.LedgerService
 }
 
 func NewReceiptService() *ReceiptService {
 	return &ReceiptService{
-		rules:  rules.RulesService{},
+		rules:  rules.New(),
 		ledger: ledger.New(),
 	}
 }
@@ -28,6 +29,7 @@ func (s *ReceiptService) LookupPoints(id string) (int, error) {
 
 	entry, exists := s.ledger.Find(id)
 
+	log.Printf("id: %v found: %v", id, entry.Points)
 	if !exists {
 		return 0, errors.New("not found")
 	}
@@ -42,6 +44,7 @@ func (s *ReceiptService) ProcessReceipt(receipt *models.Receipt) (string, error)
 
 	points, err := s.rules.CalculatePoints(receipt)
 
+	log.Printf("points calculated: %v", points)
 	if err != nil {
 		return "", err
 	}
