@@ -1,0 +1,43 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+*.out
+
+# Test binary
+*.test
+
+# Go modules
+vendor/
+go.sum
+
+# IDEs and editor-specific files
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+.vscode/
+
+# Logs and debug output
+*.log
+*.trace
+
+# Coverage reports
+coverage.out
+
+# Temporary files
+*.tmp
+*.temp
+
+# Build directories
+build/
+dist/
+
+# Generated code
+gen/
+*.gen.go
+
+# Go-specific directories
+bin/
